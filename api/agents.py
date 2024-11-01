@@ -20,10 +20,11 @@ WALLET_ID = os.environ.get("WALLET_ID")
 WALLET_DATA = os.environ.get("WALLET_DATA")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
-print(API_KEY_NAME)
 
 # Configure CDP with environment variables
 Cdp.configure(API_KEY_NAME, PRIVATE_KEY)
+
+wallet = Wallet.create()
 
 # Create a new wallet on the Base Sepolia testnet
 # You could make this a function for the agent to create a wallet on any network
@@ -33,9 +34,6 @@ Cdp.configure(API_KEY_NAME, PRIVATE_KEY)
 # read the wallet_data as json and get the seed
 wallet_seed = json.loads(WALLET_DATA)[WALLET_ID]
 
-print("seed: ", wallet_seed['seed'])
-
-print("wallet_id: ", WALLET_ID)
 dict = WalletData.from_dict(dict({
     "wallet_id": WALLET_ID,
     "seed": wallet_seed['seed']
