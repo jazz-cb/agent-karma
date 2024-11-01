@@ -96,6 +96,22 @@ export default function Home() {
                     </p>
                   </div>
                 </Link>
+
+                <Link href="/create/defi-analyst">
+                  <div className="p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-500 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10">
+                    <div className="flex items-center mb-2">
+                      <div className="p-2 bg-teal-100 dark:bg-teal-900/30 rounded-lg">
+                        <svg className="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                        </svg>
+                      </div>
+                      <h3 className="ml-3 font-bold text-xl">DeFi Market Analyst</h3>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 ml-11">
+                      Create an AI agent specialized in DeFi market analysis and trends
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
