@@ -1,71 +1,92 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-16 space-y-4">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-            FAM - Financial Agent Manager
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Leverage the power of AI agents for your business needs
-          </p>
-        </div>
+    <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-gray-900 to-black text-white">
+      {/* Hero Section */}
+      <div className="w-full max-w-6xl mx-auto pt-24 pb-16 px-6 text-center">
+        <h1 className="text-6xl md:text-7xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+          FAM
+        </h1>
+        <p className="text-2xl md:text-3xl font-bold mb-4 text-white">
+          Financial Agent Management
+        </p>
+        <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+          Transform your financial strategies with AI-powered agents that adapt to market conditions in real-time
+        </p>
+      </div>
 
-        {/* Centered Create New Agent Card */}
-        <div className="max-w-2xl mx-auto px-4">
-          <div className="h-full rounded-2xl bg-white dark:bg-gray-800 p-8 border border-gray-100 dark:border-gray-700 relative overflow-hidden">
-            {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-teal-500/10 rounded-full blur-3xl transform translate-x-16 -translate-y-16"></div>
+      {/* DeFi Analyst Section */}
+      <div className="w-full max-w-5xl mx-auto px-6 pb-24">
+        <div className="p-8 rounded-xl border border-gray-800 bg-gray-900/50 backdrop-blur-xl shadow-2xl">
+          <h2 className="text-2xl font-bold text-center mb-8 text-teal-400">
+            DeFi Market Analyst
+          </h2>
 
-            <div className="relative">
-              <div className="flex items-center mb-6">
-                <div className="p-3 bg-gradient-to-br from-green-500 to-teal-500 rounded-xl shadow-lg">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link href="/create/defi-analyst/bearish" className="block">
+              <div className="p-4 rounded-lg border border-gray-800 hover:border-red-500/50 bg-gray-900/50 transition-all group">
+                <div className="flex items-center space-x-4">
+                  <div className="w-14 h-14 bg-red-900/30 rounded-lg flex items-center justify-center">
+                    <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="text-base font-medium group-hover:text-red-400">Bearish</span>
+                    <p className="text-sm text-gray-400">Conservative, risk-averse strategy</p>
+                  </div>
                 </div>
-                <h2 className="ml-4 text-2xl font-bold bg-gradient-to-r from-green-600 to-teal-600 text-transparent bg-clip-text">
-                  Create a New Agent
-                </h2>
               </div>
+            </Link>
 
-              <div className="space-y-4">
-                <Link href="/defi-pro">
-                  <div className="p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-500 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10">
-                    <div className="flex items-center mb-2">
-                      <div className="p-2 bg-teal-100 dark:bg-teal-900/30 rounded-lg">
-                        <svg className="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <h3 className="ml-3 font-bold text-xl">DeFi Pro Agent</h3>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-300 ml-11">
-                      Create an AI agent expert in DeFi protocols and strategies
-                    </p>
+            <Link href="/create/defi-analyst/buffet" className="block">
+              <div className="p-4 rounded-lg border border-gray-800 hover:border-blue-500/50 bg-gray-900/50 transition-all group">
+                <div className="flex items-center space-x-4">
+                  <div className="w-14 h-14 bg-blue-900/30 rounded-lg flex items-center justify-center">
+                    <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                   </div>
-                </Link>
-                <Link href="/create/content-marketing">
-                  <div className="p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-green-500 dark:hover:border-green-500 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10">
-                    <div className="flex items-center mb-2">
-                      <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                        <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                      </div>
-                      <h3 className="ml-3 font-bold text-xl">Content Marketing Agent</h3>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-300 ml-11">
-                      Create an AI agent specialized in content marketing strategies
-                    </p>
+                  <div>
+                    <span className="text-base font-medium group-hover:text-blue-400">Buffet</span>
+                    <p className="text-sm text-gray-400">Value investing approach</p>
                   </div>
-                </Link>
+                </div>
               </div>
-            </div>
+            </Link>
+
+            <Link href="/create/defi-analyst/bullish" className="block">
+              <div className="p-4 rounded-lg border border-gray-800 hover:border-green-500/50 bg-gray-900/50 transition-all group">
+                <div className="flex items-center space-x-4">
+                  <div className="w-14 h-14 bg-green-900/30 rounded-lg flex items-center justify-center">
+                    <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="text-base font-medium group-hover:text-green-400">Bullish</span>
+                    <p className="text-sm text-gray-400">Growth-focused strategy</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/create/defi-analyst/moon" className="block">
+              <div className="p-4 rounded-lg border border-gray-800 hover:border-purple-500/50 bg-gray-900/50 transition-all group">
+                <div className="flex items-center space-x-4">
+                  <div className="w-14 h-14 bg-purple-900/30 rounded-lg flex items-center justify-center">
+                    <svg className="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="text-base font-medium group-hover:text-purple-400">Moon</span>
+                    <p className="text-sm text-gray-400">High-risk, high-reward approach</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
