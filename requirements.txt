@@ -1,1 +1,4 @@
 Flask==3.0.3
+cdp-sdk==0.10.1
+openai==1.52.2
+python-dotenv==1.0.0
