@@ -1,4 +1,5 @@
 import json
+import random
 from swarm import Agent
 from cdp import *
 from typing import List, Dict, Any
@@ -21,10 +22,10 @@ WALLET_DATA = os.environ.get("WALLET_DATA")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 # Read abi json for aave and usdc
-with open('abi/aave_v3.json', 'r') as f:
+with open('/Users/jayasudhajayakumaran/coinbase/public/jayasudha/agent-karma/api/abi/aave_v3.json', 'r') as f:
     aave_abi = json.load(f)
 
-with open('abi/usdc.json', 'r') as f:
+with open('/Users/jayasudhajayakumaran/coinbase/public/jayasudha/agent-karma/api/abi/usdc.json', 'r') as f:
     usdc_abi = json.load(f)
 
 AAVE_POOL_ADDRESS = "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b"
@@ -142,13 +143,6 @@ AAVE_POOL_ADDRESS = "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b"
 # USDC deployed on base sepolia
 USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
 
-# Load ABIs (assuming you have these JSON files)
-with open('abi/aave_v3.json', 'r') as f:
-    aave_abi = json.load(f)
-
-with open('abi/usdc.json', 'r') as f:
-    usdc_abi = json.load(f)
-
 def get_position():
     """
     Get agent's position in Aave and USDC balance
@@ -217,21 +211,23 @@ def supply_usdc_to_aave(amount):
     )
     
     approve_result = approve_invocation.wait()
-    print('USDC spend approved:', approve_result)
+    print('USDC spend approved:', approve_result, ' for address:', agent_wallet.default_address.address_id)
 
     # Supply to Aave
+    print('Attempting to supply USDC to Aave')
     supply_invocation = agent_wallet.invoke_contract(
         contract_address=AAVE_POOL_ADDRESS,
         method="supply",
         args={
             "asset": USDC_ADDRESS,
             "amount": amount_to_supply,
-            "onBehalfOf": address.address_id,
+            "onBehalfOf": agent_wallet.default_address.address_id,
             "referralCode": "0"
         },
         abi=aave_abi
     )
     
+    print('Wait on supplying USDC to Aave')
     supply_result = supply_invocation.wait()
     print('USDC supplied to Aave:', supply_result)
 
@@ -356,10 +352,81 @@ def repay_usdc_to_aave(amount):
     except Exception as e:
         print(f"Failed to repay loan: {e}")
         raise Exception(status_code=500, detail=str(e))
-    
+
 def parse_units(amount: str, decimals: int) -> str:
     """Convert human readable amount to wei"""
     return str(int(Decimal(amount) * Decimal(10 ** decimals)))
+
+def get_bearish_strategy(): 
+    """
+    Get a bearish strategy for the market
+    
+    Returns:
+        str: A bearish strategy
+    """
+    strategies = [
+        "USDC into Aave lending pool (Highly variable - 4-16.31% APY)",
+        "Morpho USDC market (Highly variable - 4-12.31% APY)",
+    ]
+
+    # Find a random strategy
+    random_strategy = random.choice(strategies)
+
+    return f"I have selected {random_strategy} as for you as a Bearish investment."
+
+def get_buffet_strategy():
+    """
+    Get a buffet strategy for the market
+    
+    Returns:
+        str: A buffet strategy
+    """
+
+    strategies = [
+        "Swap USDC into EURC OR start with EURC",
+        "Deposit EURC into Moonwell lending pool (18.4% APY+morpho rewards)",
+        "Supply USDC to Aave lending pool, borrow 10% and supply back to Aave"
+    ]
+
+    # Find a random strategy
+    random_strategy = random.choice(strategies)
+
+    return f"I have selected {random_strategy} as for you as a Buffet investment."
+
+def get_bullish_strategy():
+    """
+    Get a bullish strategy for the market
+    
+    Returns:
+        str: A bullish strategy
+    """
+
+    strategies = [
+        "Swap USDC into wstETH (3-4% APY)",
+        "Add stETH to Definitive hyperstaking (14.44%)",
+    ]
+
+    # Find a random strategy
+    random_strategy = random.choice(strategies)
+
+    return f"I have selected {random_strategy} as for you as a Bullish investment."
+
+def get_moon_strategy():
+    """
+    Get a moon strategy for the market
+    
+    Returns:
+        str: A moon strategy
+    """
+
+    strategies = [
+        "Borrow 30% of deposit as USDC and Redeposit to Aave",
+    ]
+
+    # Find a random strategy
+    random_strategy = random.choice(strategies)
+
+    return f"I have selected {random_strategy} as for you as a Moon investment."
 
 # Create the Reputation Agent with all available functions
 reputation_agent = Agent(
@@ -375,6 +442,12 @@ reputation_agent = Agent(
         borrow_usdc_from_aave,
         withdraw_usdc_from_aave,
         repay_usdc_to_aave,
-        get_position
+        get_position,
+        get_bearish_strategy,
+        get_buffet_strategy,
+        get_bullish_strategy,
+        get_moon_strategy,
     ],
 )
+
+
