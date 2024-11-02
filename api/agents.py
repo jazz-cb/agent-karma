@@ -29,6 +29,7 @@ with open('abi/usdc.json', 'r') as f:
 
 AAVE_POOL_ADDRESS = "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b"
 USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+NETWORK_ID = "base-sepolia"
 
 # Configure CDP with environment variables
 Cdp.configure(API_KEY_NAME, PRIVATE_KEY)
@@ -147,6 +148,49 @@ with open('abi/aave_v3.json', 'r') as f:
 
 with open('abi/usdc.json', 'r') as f:
     usdc_abi = json.load(f)
+
+def get_position():
+    """
+    Get agent's position in Aave and USDC balance
+    
+    Returns:
+        dict: User's position data including collateral, debt, and USDC balance
+    """
+    try:
+        # Get user account data from Aave
+        account_data = SmartContract.read(
+            network_id=NETWORK_ID,
+            contract_address=AAVE_POOL_ADDRESS,
+            method="getUserAccountData",
+            args={"user": "0xAbA75B6adC1314C8707Cd357DC256e33C6006431"},
+            abi=aave_abi
+        )
+
+        # Get USDC balance
+        usdc_balance = SmartContract.read(
+            network_id=NETWORK_ID,
+            contract_address=USDC_ADDRESS,
+            method="balanceOf",
+            args={"account": "0xAbA75B6adC1314C8707Cd357DC256e33C6006431"},
+            abi=usdc_abi
+        )
+
+        print("address:", address.address_id)
+        print("account_data:", account_data)
+
+        return {
+            "totalCollateralBase": account_data[0],
+            "totalDebtBase": account_data[1],
+            "availableBorrowsBase": account_data[2],
+            "currentLiquidationThreshold": account_data[3],
+            "ltv": account_data[4],
+            "healthFactor": account_data[5],
+            "usdcBalance": usdc_balance
+        }
+
+    except Exception as e:
+        print(f"Error calling getUserAccountData: {e}")
+        raise Exception(status_code=500, detail=str(e))
 
 # Supply USDC to Aave
 def supply_usdc_to_aave(amount):
@@ -330,6 +374,7 @@ reputation_agent = Agent(
         supply_usdc_to_aave,
         borrow_usdc_from_aave,
         withdraw_usdc_from_aave,
-        repay_usdc_to_aave
+        repay_usdc_to_aave,
+        get_position
     ],
 )
