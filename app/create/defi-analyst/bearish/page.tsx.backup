@@ -7,7 +7,7 @@ interface SupplyResponse {
   txHash: string
 }
 
-export default function BuffetStrategyPage() {
+export default function BearishStrategyPage() {
   const [amount, setAmount] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
   const [txHash, setTxHash] = useState<string | null>(null)
@@ -15,31 +15,32 @@ export default function BuffetStrategyPage() {
 
   const handleSupply = async () => {
     if (!amount || isLoading) return
-    
+
     setIsLoading(true)
     setError(null)
     setTxHash(null)
 
     try {
-      const response = await fetch('/aave', {
+      const response = await fetch('/api/aave', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           action: 'supply',
-          amount: amount
+          amount: amount.toString()
         }),
       })
 
-      const data: SupplyResponse = await response.json()
-
       if (!response.ok) {
-        throw new Error(data.txHash || 'Failed to supply USDC')
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to supply USDC')
       }
 
+      const data: SupplyResponse = await response.json()
       setTxHash(data.txHash)
-    } catch (err) {
+    } catch (err: any) {
+      console.error('Supply error:', err)
       setError(err.message || 'An error occurred while supplying USDC')
     } finally {
       setIsLoading(false)
@@ -51,13 +52,13 @@ export default function BuffetStrategyPage() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
           {/* Header Section */}
-          <div className="relative h-48 bg-gradient-to-r from-blue-600 to-blue-800 p-8">
+          <div className="relative h-48 bg-gradient-to-r from-red-600 to-red-800 p-8">
             <div className="relative">
               <h1 className="text-3xl font-bold text-white mb-2">
-                Buffet Strategy
+                Bearish Strategy
               </h1>
-              <p className="text-blue-100">
-                Value-focused lending in stable assets
+              <p className="text-red-100">
+                Conservative approach: Supply USDC to Aave for stable yields
               </p>
             </div>
           </div>
@@ -67,7 +68,7 @@ export default function BuffetStrategyPage() {
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-4">Supply USDC</h2>
               <p className="text-gray-400 mb-6">
-                Supply your USDC to Aave to earn interest while maintaining a value-focused position.
+                Supply your USDC to Aave to earn interest while maintaining a conservative position in the market.
               </p>
               
               {/* Amount Input */}
@@ -93,7 +94,7 @@ export default function BuffetStrategyPage() {
                 <button
                   onClick={handleSupply}
                   disabled={isLoading || !amount || parseFloat(amount) <= 0}
-                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 
+                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-600 
                            text-white font-bold py-3 px-4 rounded-lg transition-colors
                            flex items-center justify-center"
                 >
