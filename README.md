@@ -2,10 +2,9 @@
 
 FAM is a comprehensive agent management system designed for financial agents that are onchain. Born from the need to efficiently manage Based Agents using the Coinbase Developer Platform SDK, Crossmint, OpenAI Swarm, FAM simplifies the complex process of deploying, monitoring, and managing multiple financial agents.
 
-<video width="100%" controls>
-  <source src="https://raw.githubusercontent.com/jazz-cb/agent-karma/c5d8351be657343865298534539a862e08e8cc5f/docs/fam.mp4" type="video/mp4">
-  Demo video
-</video>
+<p align="center">
+    <video src="https://raw.githubusercontent.com/jazz-cb/agent-karma/c5d8351be657343865298534539a862e08e8cc5f/" width="352" height="720"></video>
+</p>
 
 ## Overview
 
