@@ -21,12 +21,17 @@ interface SuccessMessage {
   message: string
 }
 
-export default function MoonStrategyPage() {
+export default function BullishStrategyPage() {
   const [initialAmount, setInitialAmount] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  const [showTransactions, setShowTransactions] = useState(false)
+  const [successMessage, setSuccessMessage] = useState<SuccessMessage>({
+    show: false,
+    message: ''
+  })
   const [steps, setSteps] = useState<Step[]>([
     {
       number: 1,
@@ -37,21 +42,16 @@ export default function MoonStrategyPage() {
     {
       number: 2,
       title: 'Borrow USDC',
-      description: 'Borrow 30% USDC against your collateral',
+      description: 'Borrow 10% of supplied USDC',
       status: 'pending'
     },
     {
       number: 3,
-      title: 'Supply Borrowed',
+      title: 'Re-supply Borrowed',
       description: 'Supply borrowed USDC back to Aave',
       status: 'pending'
     }
   ])
-  const [successMessage, setSuccessMessage] = useState<SuccessMessage>({
-    show: false,
-    message: ''
-  })
-  const [showTransactions, setShowTransactions] = useState(false)
 
   const updateStepStatus = (stepNumber: number, status: Step['status'], txHash?: any) => {
     setSteps(prevSteps => prevSteps.map(step => 
@@ -104,16 +104,17 @@ export default function MoonStrategyPage() {
       await executeStep(1, initialAmount, 'supply')
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      await executeStep(2, initialAmount, 'borrow')
+      const borrowAmount = (parseFloat(initialAmount) * 0.3).toString()
+      await executeStep(2, borrowAmount, 'borrow')
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      await executeStep(3, initialAmount, 'supply')
+      await executeStep(3, borrowAmount, 'supply')
 
       setIsLoading(false)
       
       setSuccessMessage({
         show: true,
-        message: "🚀 Moon Strategy successfully executed! All steps completed."
+        message: "🎯 Bullish Strategy successfully executed! All steps completed."
       })
 
       setTimeout(() => {
@@ -139,13 +140,13 @@ export default function MoonStrategyPage() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
           {/* Header Section */}
-          <div className="relative h-48 bg-gradient-to-r from-purple-600 to-blue-600 p-8">
+          <div className="relative h-48 bg-gradient-to-r from-green-600 to-emerald-600 p-8">
             <div className="relative">
               <h1 className="text-3xl font-bold text-white mb-2">
-                Moon Strategy
+                Bullish Strategy
               </h1>
-              <p className="text-blue-100">
-                High-risk, high-reward: Maximize your gains through leveraged positions
+              <p className="text-green-100">
+                Optimistic approach: Leverage your position for higher returns
               </p>
             </div>
           </div>
@@ -153,9 +154,9 @@ export default function MoonStrategyPage() {
           {/* Main Content */}
           <div className="p-8">
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Moon Strategy Setup</h2>
+              <h2 className="text-xl font-semibold mb-4">Bullish Strategy Setup</h2>
               <p className="text-gray-400 mb-6">
-                Execute a series of steps to maximize your position through leveraged lending.
+                Execute a series of steps to optimize your position through leveraged lending.
               </p>
 
               {/* Steps Display */}
@@ -174,7 +175,7 @@ export default function MoonStrategyPage() {
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
                         {step.status === 'loading' && (
-                          <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
+                          <Loader2 className="w-5 h-5 text-green-400 animate-spin" />
                         )}
                         {step.status === 'complete' && (
                           <CheckCircle2 className="w-5 h-5 text-green-400" />
@@ -207,7 +208,7 @@ export default function MoonStrategyPage() {
                 <div className="mb-6">
                   <button
                     onClick={() => setShowTransactions(!showTransactions)}
-                    className="flex items-center text-blue-400 hover:text-blue-300 transition-colors"
+                    className="flex items-center text-green-400 hover:text-green-300 transition-colors"
                   >
                     {showTransactions ? <ChevronUp className="w-4 h-4 mr-1" /> : <ChevronDown className="w-4 h-4 mr-1" />}
                     {showTransactions ? 'Hide Transactions' : 'Click to see transactions'}
@@ -223,7 +224,7 @@ export default function MoonStrategyPage() {
                               href={`https://sepolia.etherscan.io/tx/${step.txHash}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center text-blue-400 hover:text-blue-300"
+                              className="flex items-center text-green-400 hover:text-green-300"
                             >
                               {step.txHash.slice(0, 10)}...{step.txHash.slice(-8)}
                               <ExternalLink className="w-3 h-3 ml-1" />
@@ -260,7 +261,7 @@ export default function MoonStrategyPage() {
                 <button
                   onClick={handleStartStrategy}
                   disabled={isLoading || !initialAmount || parseFloat(initialAmount) <= 0}
-                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 
+                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 
                            text-white font-bold py-3 px-4 rounded-lg transition-colors
                            flex items-center justify-center"
                 >
@@ -270,7 +271,7 @@ export default function MoonStrategyPage() {
                       Executing Strategy...
                     </>
                   ) : (
-                    'Start Moon Strategy'
+                    'Start Bullish Strategy'
                   )}
                 </button>
               </div>
@@ -297,7 +298,7 @@ export default function MoonStrategyPage() {
       {/* Chat Icon Button */}
       <button 
         onClick={() => setIsChatOpen(!isChatOpen)}
-        className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 p-4 rounded-full shadow-lg transition-colors"
+        className="fixed bottom-8 right-8 bg-green-600 hover:bg-green-700 p-4 rounded-full shadow-lg transition-colors"
       >
         <MessageCircle className="w-6 h-6 text-white" />
       </button>
