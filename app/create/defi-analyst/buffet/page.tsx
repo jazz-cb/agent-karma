@@ -135,6 +135,7 @@ export default function BuffetStrategyPage() {
       <ChatWindow 
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
+        strategy="buffet"
       />
     </div>
   )

@@ -306,6 +306,7 @@ export default function MoonStrategyPage() {
       <ChatWindow 
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
+        strategy="moon"
       />
     </div>
   )

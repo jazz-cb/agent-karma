@@ -11,9 +11,24 @@ type Message = {
 interface ChatWindowProps {
   isOpen: boolean
   onClose: () => void
+  strategy?: 'bearish' | 'buffet' | 'bullish' | 'moon'
 }
 
-export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
+const strategyEmojis = {
+  bearish: '🐻',
+  buffet: '💎',
+  bullish: '🐂',
+  moon: '🚀'
+}
+
+const strategyTitles = {
+  bearish: 'Chat with Bearish Agent',
+  buffet: 'Chat with Buffet Agent',
+  bullish: 'Chat with Bullish Agent',
+  moon: 'Chat with Moon Agent'
+}
+
+export default function ChatWindow({ isOpen, onClose, strategy }: ChatWindowProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState('')
   const [isSending, setIsSending] = useState(false)
@@ -99,7 +114,9 @@ export default function ChatWindow({ isOpen, onClose }: ChatWindowProps) {
   return (
     <div className="fixed bottom-24 right-8 w-96 h-[500px] bg-gray-800 rounded-lg shadow-xl border border-gray-700 flex flex-col">
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
-        <h3 className="font-semibold text-white">Chat with AI Agent</h3>
+        <h3 className="font-semibold text-white">
+          {strategy ? strategyTitles[strategy] : 'Chat with AI Agent'} {strategy && strategyEmojis[strategy]}
+        </h3>
         <button 
           onClick={onClose}
           className="text-gray-400 hover:text-white"
