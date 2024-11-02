@@ -188,5 +188,5 @@ def main():
 
 
 if __name__ == "__main__":
-    print("Starting Based Agent...")
+    print("Starting Reputation Agent...")
     main()

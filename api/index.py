@@ -1,6 +1,12 @@
 from flask import Flask
+from .agents import interact_with_aave
+
 app = Flask(__name__)
 
-@app.route("/api/reputation")
-def agent_info():
-    return "Agent info"
+class ActionRequest:
+    action: str # "supply" or "borrow" or "repay" or  "withdraw"
+    amount: str
+
+@app.post("/aave")
+async def handle_aave_action(request: ActionRequest):
+    return interact_with_aave(request)
