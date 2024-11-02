@@ -1,0 +1,28 @@
+/* Custom scrollbar for the chat widget */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 20px;
+}
+
+/* For dark mode */
+.dark .overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.3);
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+} 
