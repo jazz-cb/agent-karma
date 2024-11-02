@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Loader2, MessageCircle, AlertCircle, CheckCircle2, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react'
 import ChatWindow from '@/app/components/ChatWindow'
+import CredentialWidget from '@/app/components/CredentialWidget'
 
 interface SupplyResponse {
   txHash: string
@@ -138,7 +139,10 @@ export default function BullishStrategyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-8">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden relative">
+          {/* CredentialWidget */}
+          <CredentialWidget />
+
           {/* Header Section */}
           <div className="relative h-48 bg-gradient-to-r from-green-600 to-emerald-600 p-8">
             <div className="relative">
