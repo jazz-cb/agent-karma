@@ -178,9 +178,9 @@ def main():
     mode = choose_mode()
 
     mode_functions = {
-        'chat': lambda: run_demo_loop(reputation_agent),
-        'auto': lambda: run_autonomous_loop(reputation_agent),
-        'two-agent': lambda: run_openai_conversation_loop(reputation_agent)
+        'chat': lambda: run_demo_loop(financial_agent),
+        'auto': lambda: run_autonomous_loop(financial_agent),
+        'two-agent': lambda: run_openai_conversation_loop(financial_agent)
     }
 
     print(f"\nStarting {mode} mode...")
