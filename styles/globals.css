@@ -25,4 +25,54 @@
 
 .backdrop-blur-xl {
   backdrop-filter: blur(24px);
+}
+
+@layer components {
+  /* Ribbon base styles */
+  .ribbon-wrapper {
+    position: absolute;
+    top: -2px;
+    right: -16px;
+    width: 16rem;
+    transform: rotate(45deg);
+  }
+
+  .ribbon {
+    position: absolute;
+    top: -12px;
+    right: -120px;
+    width: 480px;
+  }
+
+  .ribbon-content {
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    transform: rotate(45deg);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+
+  .ribbon-tail-left,
+  .ribbon-tail-right {
+    position: absolute;
+    bottom: -4px;
+    width: 16px;
+    height: 16px;
+    background: #1e40af;
+  }
+
+  .ribbon-tail-left {
+    left: 0;
+  }
+
+  .ribbon-tail-right {
+    right: 0;
+  }
 } 
