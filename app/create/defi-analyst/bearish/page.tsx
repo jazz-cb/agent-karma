@@ -1,13 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, MessageCircle } from 'lucide-react'
+import ChatWindow from '@/app/components/ChatWindow'
 
 export default function BearishStrategyPage() {
   const [amount, setAmount] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   const handleSupply = async () => {
     if (!amount || isLoading) return
@@ -46,8 +48,6 @@ export default function BearishStrategyPage() {
       setIsLoading(false)
     }
   }
-
-  console.log("Current result state:", result)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-8">
@@ -127,6 +127,20 @@ export default function BearishStrategyPage() {
           </div>
         </div>
       </div>
+      
+      {/* Chat Icon Button */}
+      <button 
+        onClick={() => setIsChatOpen(!isChatOpen)}
+        className="fixed bottom-8 right-8 bg-red-600 hover:bg-red-700 p-4 rounded-full shadow-lg transition-colors"
+      >
+        <MessageCircle className="w-6 h-6 text-white" />
+      </button>
+
+      {/* Chat Window Component */}
+      <ChatWindow 
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+      />
     </div>
   )
 } 

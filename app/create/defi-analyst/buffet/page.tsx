@@ -10,7 +10,7 @@ interface SupplyResponse {
 export default function BuffetStrategyPage() {
   const [amount, setAmount] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
-  const [txHash, setTxHash] = useState<string | null>(null)
+  const [result, setResult] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleSupply = async () => {
@@ -18,10 +18,10 @@ export default function BuffetStrategyPage() {
     
     setIsLoading(true)
     setError(null)
-    setTxHash(null)
+    setResult(null)
 
     try {
-      const response = await fetch('/aave', {
+      const response = await fetch('/api/aave', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,13 +32,9 @@ export default function BuffetStrategyPage() {
         }),
       })
 
-      const data: SupplyResponse = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.txHash || 'Failed to supply USDC')
-      }
-
-      setTxHash(data.txHash)
+      const data = await response.json()
+      console.log("API Response:", data)
+      setResult(data)
     } catch (err) {
       setError(err.message || 'An error occurred while supplying USDC')
     } finally {
@@ -116,9 +112,9 @@ export default function BuffetStrategyPage() {
               </div>
             )}
 
-            {txHash && (
+            {result && (
               <div className="p-4 bg-green-900/20 border border-green-500/50 rounded-lg text-green-300">
-                Transaction successful! Hash: {txHash}
+                Transaction successful! {JSON.stringify(result)}
               </div>
             )}
           </div>
