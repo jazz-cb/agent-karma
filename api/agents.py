@@ -22,10 +22,10 @@ WALLET_DATA = os.environ.get("WALLET_DATA")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 # Read abi json for aave and usdc
-with open('abi/aave_v3.json', 'r') as f:
+with open('/Users/jayasudhajayakumaran/coinbase/public/jayasudha/agent-karma/api/abi/aave_v3.json', 'r') as f:
     aave_abi = json.load(f)
 
-with open('abi/usdc.json', 'r') as f:
+with open('/Users/jayasudhajayakumaran/coinbase/public/jayasudha/agent-karma/api/abi/usdc.json', 'r') as f:
     usdc_abi = json.load(f)
 
 AAVE_POOL_ADDRESS = "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b"
@@ -143,13 +143,6 @@ AAVE_POOL_ADDRESS = "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b"
 # USDC deployed on base sepolia
 USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
 
-# Load ABIs (assuming you have these JSON files)
-with open('abi/aave_v3.json', 'r') as f:
-    aave_abi = json.load(f)
-
-with open('abi/usdc.json', 'r') as f:
-    usdc_abi = json.load(f)
-
 def get_position():
     """
     Get agent's position in Aave and USDC balance
@@ -218,21 +211,23 @@ def supply_usdc_to_aave(amount):
     )
     
     approve_result = approve_invocation.wait()
-    print('USDC spend approved:', approve_result)
+    print('USDC spend approved:', approve_result, ' for address:', agent_wallet.default_address.address_id)
 
     # Supply to Aave
+    print('Attempting to supply USDC to Aave')
     supply_invocation = agent_wallet.invoke_contract(
         contract_address=AAVE_POOL_ADDRESS,
         method="supply",
         args={
             "asset": USDC_ADDRESS,
             "amount": amount_to_supply,
-            "onBehalfOf": address.address_id,
+            "onBehalfOf": agent_wallet.default_address.address_id,
             "referralCode": "0"
         },
         abi=aave_abi
     )
     
+    print('Wait on supplying USDC to Aave')
     supply_result = supply_invocation.wait()
     print('USDC supplied to Aave:', supply_result)
 

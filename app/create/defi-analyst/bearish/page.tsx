@@ -3,14 +3,10 @@
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
 
-interface SupplyResponse {
-  txHash: string
-}
-
 export default function BearishStrategyPage() {
   const [amount, setAmount] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
-  const [txHash, setTxHash] = useState<string | null>(null)
+  const [result, setResult] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleSupply = async () => {
@@ -18,10 +14,10 @@ export default function BearishStrategyPage() {
 
     setIsLoading(true)
     setError(null)
-    setTxHash(null)
+    setResult(null)
 
     try {
-      const response = await fetch('/aave', {
+      const response = await fetch('/api/aave', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,19 +28,26 @@ export default function BearishStrategyPage() {
         }),
       })
 
-      const data: SupplyResponse = await response.json()
-
       if (!response.ok) {
-        throw new Error(data.txHash || 'Failed to supply USDC')
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
-
-      setTxHash(data.txHash)
-    } catch (err) {
-      setError(err.message || 'An error occurred while supplying USDC')
+      
+      const data = await response.json()
+      console.log("API Response:", data)
+      setResult(data)
+    } catch (err: unknown) {
+      console.error("Error:", err)
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('An error occurred while supplying USDC')
+      }
     } finally {
       setIsLoading(false)
     }
   }
+
+  console.log("Current result state:", result)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-8">
@@ -116,9 +119,9 @@ export default function BearishStrategyPage() {
               </div>
             )}
 
-            {txHash && (
+            {result && (
               <div className="p-4 bg-green-900/20 border border-green-500/50 rounded-lg text-green-300">
-                Transaction successful! Hash: {txHash}
+                Transaction Successful! {JSON.stringify(result)}
               </div>
             )}
           </div>
