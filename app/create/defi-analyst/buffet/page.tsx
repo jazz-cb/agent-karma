@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, MessageCircle } from 'lucide-react'
+import ChatWindow from '@/app/components/ChatWindow'
 
 interface SupplyResponse {
   txHash: string
@@ -12,6 +13,7 @@ export default function BuffetStrategyPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   const handleSupply = async () => {
     if (!amount || isLoading) return
@@ -120,6 +122,20 @@ export default function BuffetStrategyPage() {
           </div>
         </div>
       </div>
+
+      {/* Chat Icon Button */}
+      <button 
+        onClick={() => setIsChatOpen(!isChatOpen)}
+        className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 p-4 rounded-full shadow-lg transition-colors"
+      >
+        <MessageCircle className="w-6 h-6 text-white" />
+      </button>
+
+      {/* Chat Window Component */}
+      <ChatWindow 
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+      />
     </div>
   )
 } 
