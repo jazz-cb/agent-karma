@@ -1,78 +1,84 @@
+# FAM - Financial Agent Management
+
+FAM is a comprehensive agent management system designed for financial agents that are onchain. Born from the need to efficiently manage Based Agents using the Coinbase Developer Platform SDK, Crossmint, OpenAI Swarm, FAM simplifies the complex process of deploying, monitoring, and managing multiple financial agents.
+
 <p align="center">
-  <a href="https://nextjs-flask-starter.vercel.app/">
-    <img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" height="96">
-    <h3 align="center">Next.js Flask Starter</h3>
-  </a>
+    <video src="https://github.com/user-attachments/assets/ef7c778d-b274-4edb-abd4-b297bf44c4eb" width="352" height="720"></video>
 </p>
 
-<p align="center">Simple Next.js boilerplate that uses <a href="https://flask.palletsprojects.com/">Flask</a> as the API backend.</p>
+## Overview
 
-<br/>
+We believe agent management systems have incredible moat and stickiness, similar to what Salesforce achieved with CRM and Amazon with AWS. With stablecoin payments exceeding 10T in transaction volume (80% processed by bots and agents), FAM addresses a critical need in the market.
 
-## Introduction
+### Key Features
 
-This is a hybrid Next.js + Python app that uses Next.js as the frontend and Flask as the API backend. One great use case of this is to write Next.js apps that use Python AI libraries on the backend.
+- **Agent Deployment**: Deploy multiple financial agents with distinct strategies
+- **LLM Integration**: Interact with agents via LLMs to understand or modify strategies
+- **Onchain Credentials**: Verify agent identity with Crossmint
+- **Risk-based Strategies**: Different strategies with different risk appetite
 
-## How It Works
+## Technical Stack
 
-The Python/Flask server is mapped into to Next.js app under `/api/`.
+### Frontend
+- **NextJS**: React framework for building the user interface
+- **TailwindCSS**: Utility-first CSS framework for styling
+- **TypeScript**: Type-safe JavaScript for better development experience
 
-This is implemented using [`next.config.js` rewrites](https://github.com/vercel/examples/blob/main/python/nextjs-flask/next.config.js) to map any request to `/api/:path*` to the Flask API, which is hosted in the `/api` folder.
+### Backend
+- **Flask**: Python web framework for API endpoints
+- **WebSocket**: Real-time communication between agents and frontend
 
-On localhost, the rewrite will be made to the `127.0.0.1:5328` port, which is where the Flask server is running.
+### Blockchain Integration
+- **CDP SDK**: Onchain agentic framework for smart contract interactions
+- **Crossmint**: API credential management and verification
+- **Aave Protocol**: DeFi lending and borrowing operations
 
-In production, the Flask server is hosted as [Python serverless functions](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python) on Vercel.
+### AI/ML
+- **OpenAI Swarm**: LLM integration for agent communication
+- **Custom Agents**: Specialized financial agents with different risk profiles:
+  - Bearish Strategy (Conservative)
+  - Bullish Strategy (Optimistic)
+  - Moon Strategy (Aggressive)
+  - Buffet Strategy (Value-focused)
 
-## Demo
+## Current Features
 
-https://nextjs-flask-starter.vercel.app/
+1. **Agent Management**
+   - Deploy multiple financial agents
+   - Monitor agent status and transactions
+   - View agent credentials and verification
 
-## Deploy Your Own
+2. **Strategy Execution**
+   - USDC supply to liquidity pools
+   - Multi-step lending strategies
+   - Risk-based portfolio management
 
-You can clone & deploy it to Vercel with one click:
+3. **Real-time Communication**
+   - Chat interface with agents
+   - Strategy explanation and modification
+   - Transaction status updates
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=Next.js%20Flask%20Starter&demo-description=Simple%20Next.js%20boilerplate%20that%20uses%20Flask%20as%20the%20API%20backend.&demo-url=https%3A%2F%2Fnextjs-flask-starter.vercel.app%2F&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F795TzKM3irWu6KBCUPpPz%2F44e0c6622097b1eea9b48f732bf75d08%2FCleanShot_2023-05-23_at_12.02.15.png&project-name=Next.js%20Flask%20Starter&repository-name=nextjs-flask-starter&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fnextjs-flask&from=vercel-examples-repo)
+## Future Roadmap
 
-## Developing Locally
-
-You can clone & create this repo with the following command
-
-```bash
-npx create-next-app nextjs-flask --example "https://github.com/vercel/examples/tree/main/python/nextjs-flask"
-```
+- Payment agents that can be deployed to send payments / airdrops to users
+- Advanced investment strategies with other DeFi protocols
+- Lending health (LTV) monitoring
+- Better agent error handling and training
 
 ## Getting Started
 
-First, install the dependencies:
-
-```bash
+1. Install dependencies
+```
 npm install
-# or
-yarn
-# or
-pnpm install
+pip install -r requirements.txt
 ```
 
-Then, run the development server:
+2. Set the environment variables required in. .env. Find a template in .env.example
 
-```bash
+
+3. Start the application
+```
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The Flask server will be running on [http://127.0.0.1:5328](http://127.0.0.1:5328) – feel free to change the port in `package.json` (you'll also need to update it in `next.config.js`).
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/) - learn about Flask features and API.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
