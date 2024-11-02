@@ -22,10 +22,10 @@ WALLET_DATA = os.environ.get("WALLET_DATA")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 # Read abi json for aave and usdc
-with open('/Users/chizhang/Desktop/Personal/2024/agent-karma/api/abi/aave_v3.json', 'r') as f:
+with open('/Users/jayasudhajayakumaran/coinbase/public/jayasudha/agent-karma/api/abi/aave_v3.json', 'r') as f:
     aave_abi = json.load(f)
 
-with open('/Users/chizhang/Desktop/Personal/2024/agent-karma/api/abi/aave_v3.json', 'r') as f:
+with open('/Users/jayasudhajayakumaran/coinbase/public/jayasudha/agent-karma/api/abi/usdc.json', 'r') as f:
     usdc_abi = json.load(f)
 
 AAVE_POOL_ADDRESS = "0x07eA79F68B2B3df564D0A34F8e19D9B1e339814b"
