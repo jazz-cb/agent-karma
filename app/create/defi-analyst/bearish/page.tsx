@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Loader2, MessageCircle } from 'lucide-react'
 import ChatWindow from '@/app/components/ChatWindow'
+import CredentialWidget from '@/app/components/CredentialWidget'
 
 export default function BearishStrategyPage() {
   const [amount, setAmount] = useState<string>('')
@@ -52,7 +53,10 @@ export default function BearishStrategyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-8">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden relative">
+          {/* Add CredentialWidget */}
+          <CredentialWidget />
+
           {/* Header Section */}
           <div className="relative h-48 bg-gradient-to-r from-red-600 to-red-800 p-8">
             <div className="relative">
