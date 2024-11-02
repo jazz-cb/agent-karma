@@ -144,6 +144,7 @@ export default function BearishStrategyPage() {
       <ChatWindow 
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
+        strategy="bearish"
       />
     </div>
   )

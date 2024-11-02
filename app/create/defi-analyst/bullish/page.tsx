@@ -311,6 +311,7 @@ export default function BullishStrategyPage() {
       <ChatWindow 
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
+        strategy="bullish"
       />
     </div>
   )
